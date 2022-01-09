@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Salut BlogController!{% endblock %}
+
+{% block body %}
+<section class="articles">
+{% for article in articles %}
+    <article>
+        <h2>{{ article.title }}</h2>
+        <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la catégorie {{article.category.title}}</div> {# Les filtre date('d/m/Y') et date('H:i') affiche la date et l'heure. #}
+        <div class="content">
+            <img src="{{ article.image }}" alt="">
+            {{article.content | raw }}  {# Le filtre "raw" permet de faire sauter les balises HTML dans notre cas. #}
+            <a href="{{ path('blog_show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
+        </div>
+    </article>
+{% endfor %}
+</section> 
+{% endblock %}
